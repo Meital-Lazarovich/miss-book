@@ -1,7 +1,8 @@
-import bookApp from './cmps/book-app.cmp.js';
-import welcomePage from './cmps/welcome-page.cmp.js';
-import aboutPage from './cmps/about-page.cmp.js';
-import bookDetails from './cmps/book-details.cmp.js';
+import bookApp from './pages/book-app.cmp.js';
+import welcomePage from './pages/welcome-page.cmp.js';
+import aboutPage from './pages/about-page.cmp.js';
+import bookDetails from './pages/book-details.cmp.js';
+import bookAdd from './pages/book-add.cmp.js';
 
 
 const routes = [
@@ -20,6 +21,10 @@ const routes = [
     {
         path: '/book/:id',
         component: bookDetails
+    },
+    {
+        path: '/add',
+        component: bookAdd
     }
 ]
 

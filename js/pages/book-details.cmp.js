@@ -1,9 +1,9 @@
 'use strict';
 
 import {bookService} from '../services/book.service.js'
-import './long-text.cmp.js'
+import '../cmps/long-text.cmp.js'
 import {eventBus} from '../services/event-bus.service.js'
-import reviewAdd from './review-add.cmp.js'
+import reviewAdd from '../cmps/review-add.cmp.js'
 
 export default {
     name: 'book-details',

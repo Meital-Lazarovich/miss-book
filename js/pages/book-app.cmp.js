@@ -2,14 +2,15 @@
 
 import {bookService} from '../services/book.service.js'
 
-import bookFilter from './book-filter.cmp.js'
-import bookList from './book-list.cmp.js'
+import bookFilter from '../cmps/book-filter.cmp.js'
+import bookList from '../cmps/book-list.cmp.js'
 
 export default {
     name: 'book-app',
     template: `
         <section class="book-app-container">
             <book-filter @filtered="setFilter"></book-filter> 
+            <router-link to="/add">Add Book</router-link>
             <book-list :books="booksToShow" @selected="selectBook"></book-list>
         </section>
     `,

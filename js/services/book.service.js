@@ -7,7 +7,8 @@ export const bookService = {
   getBooks,
   getBookById,
   addReview,
-  removeReview
+  removeReview,
+  getSearchedBooks
 }
 
 const BOOKS_KEY = 'books'
@@ -46,6 +47,18 @@ function removeReview(book, reviewId) {
   storageService.store(BOOKS_KEY, gBooks)
   return Promise.resolve(book);
 }
+
+function getSearchedBooks(searched) {
+  return axios.get(`https://www.googleapis.com/books/v1/volumes?q=${searched}&key=AIzaSyCw8djD1Hif_FagSIHuaLdcPXB-KgWGiiw`)
+    .then(res => {
+        return res.data.items
+    })
+    .catch(() => {
+        throw 'Something went wrong...'
+    })
+}
+
+
 
 let gBooks = [
     {

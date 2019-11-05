@@ -12,11 +12,7 @@ export default {
             </div>
             <div class="rate flex align-center space-around">
                 Rate:
-                <button @click.prevent="updateRate(1)" :class="{marked: review.rate > 0}" class="rate-btn">☆</button> 
-                <button @click.prevent="updateRate(2)" :class="{marked: review.rate > 1}" class="rate-btn">☆</button> 
-                <button @click.prevent="updateRate(3)" :class="{marked: review.rate > 2}" class="rate-btn">☆</button> 
-                <button @click.prevent="updateRate(4)" :class="{marked: review.rate > 3}" class="rate-btn">☆</button> 
-                <button @click.prevent="updateRate(5)" :class="{marked: review.rate > 4}" class="rate-btn">☆</button> 
+                <button @click.prevent="updateRate(i)" v-for="(i) in 5" :class="{marked: review.rate > i-1}" class="rate-btn">☆</button> 
             </div>
             <div>
                 Read at:

@@ -8,7 +8,7 @@ export default {
             <h1>Miss Book</h1>
             <nav>
                 <router-link exact to="/">Home</router-link>
-                <router-link exact to="/book">Our Books</router-link>
+                <router-link exact to="/book">Books</router-link>
                 <router-link exact to="/about">About</router-link>
             </nav>
         </section>
