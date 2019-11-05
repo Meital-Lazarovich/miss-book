@@ -8,7 +8,8 @@ export const bookService = {
   getBookById,
   addReview,
   removeReview,
-  getSearchedBooks
+  getSearchedBooks,
+  addToBooks
 }
 
 const BOOKS_KEY = 'books'
@@ -56,6 +57,39 @@ function getSearchedBooks(searched) {
     .catch(() => {
         throw 'Something went wrong...'
     })
+}
+
+function addToBooks(bookUrl) {
+  return axios.get(bookUrl)
+  .then(res => {
+    return res.data
+  })
+  .then(book => {
+    return {
+      "id": book.id,
+      "title": book.volumeInfo.title,
+      "subtitle": book.volumeInfo.subtitle,
+      "authors": book.volumeInfo.authors,
+      "publishedDate": book.volumeInfo.publishedDate,
+      "description": book.volumeInfo.description,
+      "pageCount": book.volumeInfo.pageCount,
+      "categories": book.volumeInfo.categories,
+      "thumbnail": book.volumeInfo.imageLinks.thumbnail,
+      "language": book.volumeInfo.language,
+      "listPrice": book.saleInfo.listPrice
+    }
+  })
+  .then(addedBook => {
+    console.log('addedBook.saleInfo', addedBook.saleInfo);
+    if (!addedBook.saleInfo) addedBook.listPrice = {
+      "amount": 109,
+      "currencyCode": "EUR",
+      "isOnSale": true
+    }
+    gBooks.unshift(addedBook)
+    storageService.store(BOOKS_KEY, gBooks)
+    return addedBook;
+  })
 }
 
 

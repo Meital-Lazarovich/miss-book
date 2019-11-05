@@ -1,6 +1,7 @@
 'use strict';
 
 import {bookService} from '../services/book.service.js'
+import {eventBus} from '../services/event-bus.service.js'
 
 export default {
     name: 'book-add',
@@ -13,8 +14,9 @@ export default {
         </form>
         <div  v-if="!!results && results.length > 0">
             <div v-for="result in results">
+                <button @click="addToBooks(result.selfLink)">+</button>
                 <h6>{{result.volumeInfo.title}}</h6>
-                <img v-if="result.volumeInfo.imageLinks" :src="result.volumeInfo.imageLinks.thumbnail"/>
+                <img v-if="!!result.volumeInfo.imageLinks" :src="result.volumeInfo.imageLinks.thumbnail"/>
                 <img v-else src="https://onlinebookclub.org/book-covers/no-cover.jpg"/>
             </div>
         </div>
@@ -30,6 +32,24 @@ export default {
         searchBook() {
             bookService.getSearchedBooks(this.searched)
                 .then(books => this.results = books)
+        },
+        addToBooks(bookUrl) {
+            bookService.addToBooks(bookUrl)
+                .then(book => {
+                    const msg = {
+                        txt: `${book.title} was successfully added!`,
+                        type: 'success'
+                    }
+                    eventBus.$emit('show-msg', msg);
+                })
+                .catch(err => {
+                    const msg = {
+                        txt: `Something went wrong! (${err})
+                        Try to add a different book`,
+                        type: 'error'
+                    }
+                    eventBus.$emit('show-msg', msg);
+                })
         }
     }
 }
