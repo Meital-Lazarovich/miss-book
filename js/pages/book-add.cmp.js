@@ -12,12 +12,12 @@ export default {
             <input type="search" v-model="searched"/>
             <button>Search</button>
         </form>
-        <div  v-if="!!results && results.length > 0">
-            <div v-for="result in results">
+        <div  v-if="!!results && results.length > 0" class="searched-books column flex wrap space-around align-center">
+            <div v-for="result in results" class="flex space-between align-center">
                 <button @click="addToBooks(result.selfLink)">+</button>
-                <h6>{{result.volumeInfo.title}}</h6>
                 <img v-if="!!result.volumeInfo.imageLinks" :src="result.volumeInfo.imageLinks.thumbnail"/>
                 <img v-else src="https://onlinebookclub.org/book-covers/no-cover.jpg"/>
+                <h5>{{result.volumeInfo.title}}</h5>
             </div>
         </div>
     </section>

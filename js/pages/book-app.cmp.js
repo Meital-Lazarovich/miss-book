@@ -10,7 +10,7 @@ export default {
     template: `
         <section class="book-app-container">
             <book-filter @filtered="setFilter"></book-filter> 
-            <router-link to="/add">Add Book</router-link>
+            <router-link to="/add" class="add-book-btn">Add Book</router-link>
             <book-list :books="booksToShow" @selected="selectBook"></book-list>
         </section>
     `,

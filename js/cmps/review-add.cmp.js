@@ -12,7 +12,8 @@ export default {
             </div>
             <div class="rate flex align-center space-around">
                 Rate:
-                <button @click.prevent="updateRate(i)" v-for="(i) in 5" :class="{marked: review.rate > i-1}" class="rate-btn">☆</button> 
+                <!-- <button @click.prevent="updateRate(i)" v-for="(i) in 5" :class="{marked: review.rate > i-1}" class="rate-btn">☆</button>  -->
+                <button @mouseover="updateRate(i)" v-for="(i) in 5" :class="{marked: review.rate > i-1}" class="rate-btn">☆</button> 
             </div>
             <div>
                 Read at:

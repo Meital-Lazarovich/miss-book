@@ -7,6 +7,8 @@
 @import './user-msg.css';
 @import './welcome-page.css';
 @import './about-page.css';
+@import './book-app.css';
+@import './book-add.css';
 
 
 * {

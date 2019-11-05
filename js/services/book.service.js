@@ -9,7 +9,8 @@ export const bookService = {
   addReview,
   removeReview,
   getSearchedBooks,
-  addToBooks
+  addToBooks,
+  getNearBooksIds
 }
 
 const BOOKS_KEY = 'books'
@@ -49,13 +50,21 @@ function removeReview(book, reviewId) {
   return Promise.resolve(book);
 }
 
+function getNearBooksIds(bookId) {
+  var idx = gBooks.findIndex(book => book.id === bookId);
+  var nextIdx = idx+1;
+  if (nextIdx === gBooks.length) nextIdx = 0;
+  var next = gBooks[nextIdx].id;
+  var prevIdx = idx-1;
+  if (prevIdx === -1) prevIdx = gBooks.length - 1;
+  var prev = gBooks[prevIdx].id;
+  return {prev, next};
+}
+
 function getSearchedBooks(searched) {
   return axios.get(`https://www.googleapis.com/books/v1/volumes?q=${searched}&key=AIzaSyCw8djD1Hif_FagSIHuaLdcPXB-KgWGiiw`)
     .then(res => {
         return res.data.items
-    })
-    .catch(() => {
-        throw 'Something went wrong...'
     })
 }
 
@@ -80,7 +89,6 @@ function addToBooks(bookUrl) {
     }
   })
   .then(addedBook => {
-    console.log('addedBook.saleInfo', addedBook.saleInfo);
     if (!addedBook.saleInfo) addedBook.listPrice = {
       "amount": 109,
       "currencyCode": "EUR",

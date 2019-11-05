@@ -9,6 +9,10 @@ export default {
     name: 'book-details',
     template: `
         <section  v-if="book" class="book-details-container text-center flex column space-between align-center">
+            <div class="navigate flex space-between align-center">
+                <router-link :to="'/book/' + nearBooksIds.prev"> &lt; Prev Book</router-link>
+                <router-link :to="'/book/' + nearBooksIds.next">Next Book &gt; </router-link>
+            </div>
             <div class="flex space-between align-center book-details">
                 <img :src="book.thumbnail"/>
                 <div class="info">
@@ -26,8 +30,8 @@ export default {
             <review-add @reviewed="addReview"></review-add>
             <div v-if="!!book.reviews && book.reviews.length > 0" class="reviews">
                 <h3>Reviews</h3>
-                <ul>
-                    <li v-for="review in book.reviews" class="flex align-center justify-center wrap">
+                <ul class="flex column justify-center align-center">
+                    <li v-for="review in book.reviews" class="reviews flex align-center justify-center wrap">
                         <button class="remove-btn" @click="removeReview(review.id)">X</button>
                         <h4 class="name">{{review.name}}</h4>
                         <p class="info">Rate: <span>{{review.rate}}</span></p>
@@ -41,7 +45,8 @@ export default {
     data() {
         return {
             book: null,
-            bookId: null
+            bookId: null,
+            nearBooksIds: null
         }
     },
     computed: {
@@ -64,6 +69,15 @@ export default {
         }
     },
     methods: {
+        loadBook() {
+            this.bookId = this.$route.params.id;
+            bookService.getBookById(this.bookId)
+                .then(book => {
+                    this.book = book;
+                    this.nearBooksIds = bookService.getNearBooksIds(book.id);
+                    console.log('this.nearBooksIds', this.nearBooksIds);
+                })
+        },
         addReview(review) {
             bookService.addReview(this.bookId, review)
                 .then(book => {
@@ -102,9 +116,13 @@ export default {
         }
     },
     created() {
-        this.bookId = this.$route.params.id;
-        bookService.getBookById(this.bookId)
-            .then(book => this.book = book)
+        this.loadBook();
+        window.scrollTo(0, 0);
+    },
+    watch: {
+        '$route.params.id'() {
+            this.loadBook();
+        }
     },
     components: {
         reviewAdd
