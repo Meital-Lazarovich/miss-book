@@ -1,0 +1,101 @@
+@import './book-details.css';
+@import './book-preview.css';
+@import './book-filter.css';
+@import './review-add.css';
+@import './long-text.css';
+@import './app-header.css';
+@import './user-msg.css';
+@import './welcome-page.css';
+@import './about-page.css';
+
+
+* {
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: montserrat;
+    src: url('../fonts/Montserrat-Regular.ttf');
+}
+
+@font-face {
+    font-family: eurof;
+    src: url('../fonts/eurofurence/eurof55.ttf');
+}
+
+html {
+    font-family: montserrat;
+}
+
+body {
+    margin: 0;
+    background-color: #ededed;
+}
+
+button {
+    outline: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+h1 {
+    color: #36a097;
+    font-size: 60px;
+    font-weight: 900;
+    margin: 15px 0;
+    font-family: eurof;
+}
+
+h3 {
+    color: #424242;
+    margin-top: 10px;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+
+
+/* helpers */
+
+.flex {
+    display: flex;
+}
+
+.space-between {
+    justify-content: space-between;
+}
+
+.space-around {
+    justify-content: space-around;
+}
+
+.align-center {
+    align-items: center;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.column {
+    flex-direction: column;
+}
+
+.wrap {
+	flex-wrap: wrap;
+}
+
+.clean-list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.text-center {
+    text-align: center;
+}
